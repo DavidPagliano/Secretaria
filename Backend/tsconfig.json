@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "forceConsistentCasingInFileNames": true,
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "outDir": "./build",
+        "rootDir": "./src",
+        "target": "ES6",
+        "skipLibCheck": true,
+        "strict": true,
+    },
+    "include": ["src/**/*"],
+    "exclude": ["**/*.spec.ts"]
+}
