@@ -13,35 +13,84 @@ import { ObservacionModel } from "../shared/Observaciones/Observacion.Model";
 
 export const connectDB = async () => {
     try {
-        console.log('Uri', config.mongo_uri);
         const db = await mongoose.connect(config.mongo_uri);
-        console.clear();
-        console.log({ level: 'info', message: '✅ Database ' + db.connection.db?.databaseName + ' connected' });
 
-        const existingCollections = await db.connection.db?.listCollections().toArray();
-        const existingCollectionNames = existingCollections?.map(c => c.name) || [];
+        const dbName = db.connection.db?.databaseName;
+        console.log(`✅ Conectado a: ${dbName}`);
 
-        const expectedCollections = ['Grupo', 'Maestro', 'Persona', 'Coordinacion', 'Supervision', 'Zona', 'Historial', 'Domicilio', 'Localidad', 'Observaciones'];
+        const existing = await db.connection.db?.listCollections().toArray();
 
-        const missingCollections = expectedCollections.filter(name => !existingCollectionNames.includes(name));
+        const collections = await db.connection.db?.listCollections().toArray();
+        collections?.forEach(c => console.log("📂", c.name));
+        const names = existing?.map(c => c.name) || [];
 
-        if (missingCollections.length === 0) {
-            console.log({ level: 'info', message: '✅ Todas las colecciones ya existen en: ' + db.connection.db?.databaseName });
+        console.log("📦 Colecciones actuales:", names);
+
+        const expected = [
+            'grupos',
+            'maestros',
+            'personas',
+            'coordinaciones',
+            'supervisiones',
+            'zonas',
+            'historiales',
+            'domicilios',
+            'localidades',
+            'observaciones'
+        ];
+
+        const missing = expected.filter(name => !names.includes(name));
+
+        /* ---- Crear colecciones que no existan ---- */
+        if (missing.length > 0) {
+            console.log(`🚧 Creando: ${missing.join(', ')}`);
+
+            if (missing.includes('grupos')) await GrupoModel.init();
+            if (missing.includes('maestros')) await MaestroModel.init();
+            if (missing.includes('personas')) await PersonaModel.init();
+            if (missing.includes('coordinaciones')) await CoordinacionModel.init();
+            if (missing.includes('supervisiones')) await SupervisionModel.init();
+            if (missing.includes('zonas')) await ZonaModel.init();
+            if (missing.includes('historiales')) await HistorialModel.init();
+            if (missing.includes('domicilios')) await DomicilioModel.init();
+            if (missing.includes('localidads')) await LocalidadModel.init();
+            if (missing.includes('observaciones')) await ObservacionModel.init();
         } else {
-            console.log({ level: 'info', message: `🚧 Creando colecciones faltantes: ${missingCollections.join(', ')}` });
-
-            if (missingCollections.includes('Grupo')) await GrupoModel.createCollection();
-            if (missingCollections.includes('Maestro')) await MaestroModel.createCollection();
-            if (missingCollections.includes('Persona')) await PersonaModel.createCollection();
-            if (missingCollections.includes('Coordinacion')) await CoordinacionModel.createCollection();
-            if (missingCollections.includes('Supervision')) await SupervisionModel.createCollection();
-            if (missingCollections.includes('Zona')) await ZonaModel.createCollection();
-            if (missingCollections.includes('Historial')) await HistorialModel.createCollection();
-            if (missingCollections.includes('Domicilio')) await DomicilioModel.createCollection();
-            if (missingCollections.includes('Localidad')) await LocalidadModel.createCollection();
-            if (missingCollections.includes('Observaciones')) await ObservacionModel.createCollection();
+            console.log(`✅ Todas las colecciones ya existen en ${dbName}`);
         }
-        console.log("MongoDB is connected");
+
+        /* ---- Verificar si tienen data o están vacías ---- */
+        console.log(`\n📊 Estado de las colecciones en ${dbName}:\n`);
+
+        const collectionStatus = [];
+
+        for (const name of expected) {
+            const exists = (existing || []).some(c => c.name === name);
+
+            let count = 0;
+
+            if (exists) {
+                count = await db.connection.db
+                    ?.collection(name)
+                    .countDocuments() || 0;
+            }
+
+            collectionStatus.push({
+                Colección: name,
+                Existe: exists ? '✅ Sí' : '❌ No',
+                Estado: exists
+                    ? count > 0
+                        ? '✅ Con datos'
+                        : '📭 Vacía'
+                    : '—',
+                Registros: exists ? count : '—'
+            });
+        }
+
+        console.table(collectionStatus);
+
+        console.log("\n✅ MongoDB listo y verificado");
+
     } catch (error) {
         console.error(error);
     }

@@ -11,4 +11,4 @@ const LocalidadSchema = new Schema<LocalidadDto>({
     versionKey: false
 });
 
-export const LocalidadModel = model<LocalidadDto>('Localidad', LocalidadSchema);
+export const LocalidadModel = model<LocalidadDto>('Localidades', LocalidadSchema);

@@ -12,4 +12,4 @@ const ObservacionSchema = new Schema<ObservacionDto>({
     versionKey: false
 });
 
-export const ObservacionModel = model<ObservacionDto>('Observacion', ObservacionSchema);
+export const ObservacionModel = model<ObservacionDto>('Observaciones', ObservacionSchema);

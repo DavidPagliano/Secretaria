@@ -11,4 +11,4 @@ const CoordinacionSchema = new Schema<CoordinacionDto>({
     timestamps: true,
     versionKey: false
 })
-export const CoordinacionModel = model<CoordinacionDto>('Coordinacion', CoordinacionSchema);
+export const CoordinacionModel = model<CoordinacionDto>('Coordinaciones', CoordinacionSchema);

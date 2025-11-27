@@ -14,4 +14,4 @@ const DomicilioSchema = new Schema<DomicilioDto>({
     timestamps: true,
     versionKey: false
 });
-export const DomicilioModel = model<DomicilioDto>('Domicilio', DomicilioSchema);
+export const DomicilioModel = model<DomicilioDto>('Domicilios', DomicilioSchema);

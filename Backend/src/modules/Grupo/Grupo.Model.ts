@@ -15,4 +15,4 @@ const GrupoSchema = new Schema<GrupoDto>({
     versionKey: false
 });
 
-export const GrupoModel = model<GrupoDto>('Grupo', GrupoSchema);
+export const GrupoModel = model<GrupoDto>('Grupos', GrupoSchema);

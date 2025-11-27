@@ -13,4 +13,4 @@ const ZonaSchema = new Schema<ZonaDto>({
     versionKey: false
 });
 
-export const ZonaModel = model<ZonaDto>('Zona', ZonaSchema);
+export const ZonaModel = model<ZonaDto>('Zonas', ZonaSchema);

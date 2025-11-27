@@ -12,4 +12,4 @@ const HistorialSchema = new Schema<HistorialDto>({
     versionKey: false
 });
 
-export const HistorialModel = model<HistorialDto>('Historial', HistorialSchema);
+export const HistorialModel = model<HistorialDto>('Historiales', HistorialSchema);

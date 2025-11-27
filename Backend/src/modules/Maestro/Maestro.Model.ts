@@ -17,4 +17,4 @@ const MaestroSchema = new Schema<MaestroDto>({
     versionKey: false
 });
 
-export const MaestroModel = model<MaestroDto>('Maestro', MaestroSchema);
+export const MaestroModel = model<MaestroDto>('Maestros', MaestroSchema);

@@ -13,4 +13,4 @@ const SupervisionSchema = new Schema<SupervisionDto>({
     versionKey: false
 });
 
-export const SupervisionModel = model<SupervisionDto>('Supervision', SupervisionSchema);
+export const SupervisionModel = model<SupervisionDto>('Supervisiones', SupervisionSchema);
