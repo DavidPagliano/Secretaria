@@ -4,13 +4,13 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import dotenv from 'dotenv';
 
-import coordinacionRouter from './routes/Coordinacion.route';
-import grupoRouter from './routes/Grupo.route';
-import historialRouter from './routes/Historial.route';
-import maestroRouter from './routes/Maestro.route';
-import personaRouter from './routes/Persona.route';
-import supervisionRouter from './routes/Supervision.route';
-import zonaRouter from './routes/Zona.route';
+import coordinacionRouter from './modules/Coordinacion/Coordinacion.route';
+import grupoRouter from './modules/Grupo/Grupo.route';
+import historialRouter from './modules/Historial/Historial.route';
+import maestroRouter from './modules/Maestro/Maestro.route';
+import personaRouter from './modules/Persona/Persona.route';
+import supervisionRouter from './modules/Supervision/Supervision.route';
+import zonaRouter from './modules/Zona/Zona.route';
 
 const app: Express = express();
 

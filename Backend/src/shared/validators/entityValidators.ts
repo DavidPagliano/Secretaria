@@ -1,11 +1,11 @@
-import { PersonaDto } from "../../types/Persona.Interface";
-import { GrupoDto } from "../../types/Grupo.Interface";
-import { ObservacionDto } from "../../types/Observacion.Interface";
-import { MaestroDto } from "../../types/Maestro.Interface";
-import { CoordinacionDto } from "../../types/Coordinacion.Interface";
-import { ZonaDto } from "../../types/Zona.Interface";
-import { HistorialDto } from "../../types/Historial.Interface";
-import { SupervisionDto } from "../../types/Supervision,Interface";
+import { PersonaDto } from "../../modules/Persona/Persona.Interface";
+import { GrupoDto } from "../../modules/Grupo/Grupo.Interface";
+import { ObservacionDto } from "../Observaciones/Observacion.Interface";
+import { MaestroDto } from "../../modules/Maestro/Maestro.Interface";
+import { CoordinacionDto } from "../../modules/Coordinacion/Coordinacion.Interface";
+import { ZonaDto } from "../../modules/Zona/Zona.Interface";
+import { HistorialDto } from "../../modules/Historial/Historial.Interface";
+import { SupervisionDto } from "../../modules/Supervision/Supervision,Interface";
 
 
 export function validatePersonaDto(persona?: PersonaDto): string | null {
