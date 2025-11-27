@@ -18,13 +18,13 @@ export const connectDB = async () => {
         const dbName = db.connection.db?.databaseName;
         console.log(`✅ Conectado a: ${dbName}`);
 
-        const existing = await db.connection.db?.listCollections().toArray();
+        if (!db.connection.db) {
+            throw new Error("La base no está disponible");
+        }
 
         const collections = await db.connection.db?.listCollections().toArray();
         collections?.forEach(c => console.log("📂", c.name));
-        const names = existing?.map(c => c.name) || [];
-
-        console.log("📦 Colecciones actuales:", names);
+        const names = collections?.map(c => c.name) || [];
 
         const expected = [
             'grupos',
@@ -65,7 +65,7 @@ export const connectDB = async () => {
         const collectionStatus = [];
 
         for (const name of expected) {
-            const exists = (existing || []).some(c => c.name === name);
+            const exists = (collections || []).some(c => c.name === name);
 
             let count = 0;
 
